@@ -8,14 +8,14 @@
             </p>
         </div>
         <div class="ui blue center aligned segment ">
-            <div class="ui small icon input">
+            <div class="ui small icon input" :class="{error: !isQuantityAvailable}">
                 <input type="number" placeholder="Quantity" v-model.number="quantity">
                 <i class="shopping basket icon"></i>
             </div>
         </div>
         <div class="ui blue center aligned segment">
-            <button class="ui primary basic button" @click="sellStocks" :disabled="quantity <= 0">
-                <i class="money bill alternate icon"></i> Sell
+            <button class="ui primary basic button" @click="sellStocks" :disabled="quantity <= 0 || !isQuantityAvailable">
+                <i class="money bill alternate icon" v-if="isQuantityAvailable"></i> {{isQuantityAvailable?'Sell': 'Insufficient Qty'}}
             </button>
         </div>
     </div>
@@ -29,6 +29,11 @@
             return {
                 quantity: 0,
             };
+        },
+        computed: {
+            isQuantityAvailable(){
+                return this.quantity <= this.stock.quantity;
+            }
         },
         methods: {
             ...mapActions({

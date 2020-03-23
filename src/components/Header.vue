@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="item">
-                <div class="ui primary basic button">
+                <div class="ui primary basic button" :class="{negative: isLowFunds}">
                     Funds:<i class="dollar sign icon"></i> {{totalFunds}}
                 </div>
             </div>
@@ -28,6 +28,10 @@
                 const funds = this.$store.getters.funds;
                 return funds.toLocaleString('en-GB');
             },
+            isLowFunds(){
+                const balance = this.$store.getters.funds;
+                return (balance < 2000)? true : false;
+            }
         },
     };
 </script>

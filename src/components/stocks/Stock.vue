@@ -8,15 +8,17 @@
                 <i class="dollar sign icon"></i>{{stock.price}}
               </span>
             </div>
-            <div class="five wide column">
-                <div class="ui small icon input">
-                    <input type="number" placeholder="Quantity" v-model.number="quantity"> <i
-                        class="shopping basket icon"></i>
+            <div class="four wide column">
+                <div class="ui small icon input" :class="{error: isSufficientFunds}">
+                    <input type="number" placeholder="Quantity" v-model.number="quantity">
+                    <i class="shopping basket icon"></i>
                 </div>
             </div>
-            <div class="two wide column">
-                <button class="ui positive basic button" @click="buyStock" :disabled="quantity <= 0 || !isInt(quantity)">
-                    <i class="money bill alternate icon"></i> Buy
+            <div class="three wide column">
+                <button class="ui positive basic button" @click="buyStock"
+                        :disabled="isSufficientFunds || quantity <= 0 || !isInt(quantity)">
+                    <i class="money bill alternate icon" v-if="!isSufficientFunds"></i>
+                    {{isSufficientFunds?'Insufficient Funds':'Buy'}}
                 </button>
             </div>
         </div>
@@ -29,6 +31,14 @@
             return {
                 quantity: 0,
             };
+        },
+        computed: {
+            balance() {
+                return this.$store.getters.funds;
+            },
+            isSufficientFunds() {
+                return (this.quantity * this.stock.price) > this.balance;
+            },
         },
         methods: {
             buyStock() {
