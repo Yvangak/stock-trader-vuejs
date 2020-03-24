@@ -21,8 +21,8 @@
                             <i class="money bill alternate outline icon"></i>
                             Your total Funds is
                             <div class="sub header">
-                                <div class="ui positive basic button" :class="{negative: isLowFunds}">
-                                    <i class="dollar sign icon">{{funds}}</i>
+                                <div class="ui positive button" :class="{negative: isLowFunds}">
+                                    {{totalFunds | numberFormat}}
                                 </div>
                             </div>
                         </div>
@@ -35,9 +35,8 @@
 <script>
     export default {
         computed: {
-            funds() {
-                const formattedFunds = this.$store.getters.funds;
-                return formattedFunds.toLocaleString('en-GB');
+            totalFunds() {
+                return this.$store.getters.funds;
             },
             isLowFunds() {
                 const balance = this.$store.getters.funds;
