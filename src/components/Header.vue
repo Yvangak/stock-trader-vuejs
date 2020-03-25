@@ -1,7 +1,6 @@
 <template>
     <div class="ui large menu">
-        <div class="item"><img src="/images/logo.png"> Stock Trader System</div>
-        <router-link to="/"><a class="item">Home</a></router-link>
+        <router-link to="/"><div class="item"><img src="/images/logo.png"> Stock Trader System</div></router-link>
         <router-link to="/portfolio"><a class="item">Portfolio</a></router-link>
         <router-link to="/stocks"><a class="item">Stocks</a></router-link>
         <div class="right menu">
