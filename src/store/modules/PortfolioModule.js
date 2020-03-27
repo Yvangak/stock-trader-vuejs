@@ -40,6 +40,15 @@ const getters = {
     funds(state) {
         return state.funds;
     },
+    portfolioValue(state, getters){
+        let totalFunds = 0;
+        state.portFolioStocks.forEach(stock =>{
+            const record = getters.stocks.find(element => element.id === stock.id);
+            totalFunds = totalFunds +stock.quantity * record.price;
+            return totalFunds;
+        });
+        return totalFunds;
+    },
     stockPortfolio(state, getters) {
         return state.portFolioStocks.map(stock => {
             const record = getters.stocks.find(

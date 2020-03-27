@@ -14,16 +14,31 @@
                         </div>
                         <p>Click on <b>End of Day</b> to begin a new day!</p>
                     </div>
+                    <div class="ui buttons">
+                        <button class="ui positive basic button"><i class="save icon"></i>Save Data</button>
+                        <div class="or" data-text="ou"></div>
+                        <button class="ui primary basic button"><i class="sync icon"></i>Load Data</button>
+                    </div>
                 </div>
                 <div class="column">
                     <div class="ui blue segment">
                         <div class="ui icon header">
                             <i class="money bill alternate outline icon"></i>
-                            Your total Funds is
-                            <div class="sub header">
-                                <div class="ui positive button" :class="{negative: isLowFunds}">
-                                    {{totalFunds | numberFormat}}
-                                </div>
+                            Your total Funds
+                            <div class="ui horizontal divider">
+                                is
+                            </div>
+                            <div class="ui circular segment">
+                                <h2 class="ui header">
+                                    Portfolio value
+                                    <div class="sub header">{{portFolioTotalFunds | numberFormat}}</div>
+                                </h2>
+                            </div>
+                            <div class="ui inverted circular segment">
+                                <h2 class="ui inverted header">
+                                    Balance Value
+                                    <div class="sub header">{{totalFunds | numberFormat}}</div>
+                                </h2>
                             </div>
                         </div>
                     </div>
@@ -35,6 +50,9 @@
 <script>
     export default {
         computed: {
+            portFolioTotalFunds(){
+                return this.$store.getters.portfolioValue;
+            },
             totalFunds() {
                 return this.$store.getters.funds;
             },

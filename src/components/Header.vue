@@ -7,13 +7,6 @@
             <div class="item">
                 <div class="ui orange basic button" @click="endOfDay"> End Of Day</div>
             </div>
-            <div class="ui dropdown item">
-                Save And Load <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item">Save Data</a>
-                    <a class="item">Load Data</a>
-                </div>
-            </div>
             <div class="item">
                 <div class="ui primary basic button" :class="{negative: isLowFunds}">
                     Funds: {{totalFunds | numberFormat}}
