@@ -34,6 +34,7 @@
             }),
             endOfDay() {
                 this.randomize();
+                this.$toaster.info('End of the day performed successfully!')
             },
         },
     };

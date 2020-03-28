@@ -46,6 +46,7 @@
                     stockPrice: this.stock.price,
                 };
                 this.placeSellOrder(order);
+                this.$toaster.success('You have successfully sold '+ this.quantity+' stocks');
                 this.quantity = 0;
             },
             isInt() {

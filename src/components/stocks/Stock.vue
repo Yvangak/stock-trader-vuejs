@@ -49,6 +49,7 @@
                 };
                 // using dispatch
                 this.$store.dispatch('buyStock', order);
+                this.$toaster.success('You have successfully bought '+ this.quantity+' stocks');
                 this.quantity = 0;
             },
             isInt(quantity) {
