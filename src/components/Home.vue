@@ -17,7 +17,7 @@
                     <div class="ui buttons">
                         <button class="ui positive basic button" @click="saveData"><i class="save icon"></i>Save Data</button>
                         <div class="or" data-text="ou"></div>
-                        <button class="ui primary basic button"><i class="sync icon"></i>Load Data</button>
+                        <button class="ui primary basic button" @click="fetchData"><i class="sync icon"></i>Load Data</button>
                     </div>
                 </div>
                 <div class="column">
@@ -48,7 +48,7 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapActions,mapGetters } from 'vuex';
     export default {
         computed: {
             totalFunds() {
@@ -64,6 +64,7 @@
         },
         methods: {
             ...mapGetters(['stockPortfolio', 'stocks']),
+            ...mapActions(['loadData']),
             saveData(){
                 const data = {
                     balance: this.totalFunds,
@@ -72,6 +73,10 @@
                 };
                 this.$http.put('data.json', data);
                 this.$toaster.success('Successfully saved data on server!!')
+            },
+            fetchData(){
+                this.loadData();
+                this.$toaster.info('Data loaded successfully!!!');
             }
         },
     };

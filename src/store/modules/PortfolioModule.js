@@ -28,6 +28,12 @@ const mutations = {
         }
         state.funds += (stockPrice * quantity);
     },
+    'SET_PORTFOLIO'(state, portfolio) {
+        state.funds = portfolio.funds;
+        state.portFolioStocks = portfolio.portFolioStocks ?
+                portfolio.portFolioStocks :
+                [];
+    },
 };
 
 const actions = {
@@ -40,11 +46,12 @@ const getters = {
     funds(state) {
         return state.funds;
     },
-    portfolioValue(state, getters){
+    portfolioValue(state, getters) {
         let totalFunds = 0;
-        state.portFolioStocks.forEach(stock =>{
-            const record = getters.stocks.find(element => element.id === stock.id);
-            totalFunds = totalFunds +stock.quantity * record.price;
+        state.portFolioStocks.forEach(stock => {
+            const record = getters.stocks.find(
+                    element => element.id === stock.id);
+            totalFunds = totalFunds + stock.quantity * record.price;
             return totalFunds;
         });
         return totalFunds;
