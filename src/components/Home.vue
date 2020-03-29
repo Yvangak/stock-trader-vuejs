@@ -15,7 +15,7 @@
                         <p>Click on <b>End of Day</b> to begin a new day!</p>
                     </div>
                     <div class="ui buttons">
-                        <button class="ui positive basic button"><i class="save icon"></i>Save Data</button>
+                        <button class="ui positive basic button" @click="saveData"><i class="save icon"></i>Save Data</button>
                         <div class="or" data-text="ou"></div>
                         <button class="ui primary basic button"><i class="sync icon"></i>Load Data</button>
                     </div>
@@ -48,18 +48,31 @@
     </div>
 </template>
 <script>
+    import { mapGetters } from 'vuex';
     export default {
         computed: {
-            portFolioTotalFunds(){
-                return this.$store.getters.portfolioValue;
-            },
             totalFunds() {
                 return this.$store.getters.funds;
+            },
+            portFolioTotalFunds() {
+                return this.$store.getters.portfolioValue;
             },
             isLowFunds() {
                 const balance = this.$store.getters.funds;
                 return (balance > 2000) ? false : true;
             },
+        },
+        methods: {
+            ...mapGetters(['stockPortfolio', 'stocks']),
+            saveData(){
+                const data = {
+                    balance: this.totalFunds,
+                    portfolio: this.stockPortfolio(),
+                    stocks: this.stocks()
+                };
+                this.$http.put('data.json', data);
+                this.$toaster.success('Successfully saved data on server!!')
+            }
         },
     };
 </script>
